@@ -71,7 +71,10 @@ open Std (Format) in
 /--
 If both the nuw and nsw flags are the default value (false,false),
 then we should not print them. This should be the default
-behavior in Lean, but it isn't
+structure IntegerOverflowFlags where
+  nsw : Bool := false
+  nuw : Bool := false
+  deriving Repr, DecidableEq, Lean.ToExprbehavior in Lean, but it isn't
 -/
 def reprWithoutFlags (op : MOp.BinaryOp) (prec : Nat) : Format :=
   let op  : String := match op with

@@ -12,4 +12,5 @@ inductive Op : Type
   | addi (t : Builtin.ShapedInt) (nswnuw : IntegerOverflowFlags := {} )
   | muli (t : Builtin.ShapedInt) (nswnuw : IntegerOverflowFlags := {} )
   | divsi (t : Builtin.ShapedInt) (exact : Bool)
+  | constant (attr : Builtin.IntType) (v : Int)
   deriving DecidableEq, Inhabited, Lean.ToExpr, Repr

@@ -20,9 +20,7 @@ def Shape.map₂  (f : α → β →  γ) :
       let v ← (Vector.ofFn fun i => (a i, b i)).mapM fun p => f p.1 p.2
       pure fun i => v[i]
 
-def IntType.denote : IntType -> Type
-  | .int w => IntW w -- A bitvector of length w that can turn into
-  -- poison during undefined behavior.
+def IntType.denote (t : IntType) : Type := IntW t.width
 
 def Scalar.denote : Scalar -> Type
   | .int t => IntType.denote t

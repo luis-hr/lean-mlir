@@ -27,8 +27,8 @@ def muliPoison (flags : IntegerOverflowFlags := {}) (x : IntW n) (y : IntW n)  :
     .value <| x' * y'
 
 
-def divsiPoison [Monad m] [HasUB m] (exact : Bool := false) (x y : IntW n)  :
- m (IntW n) :=
+def divsiPoison [Monad m] [HasUB m] (exact : Bool := false)
+  (x y : IntW n) :  m (IntW n) :=
   match y with
   | .poison => throwUB
   | .value y' =>
@@ -41,7 +41,5 @@ def divsiPoison [Monad m] [HasUB m] (exact : Bool := false) (x y : IntW n)  :
         if x' = BitVec.intMin n ∧ y' = BitVec.allOnes n then throwUB
         else if exact ∧ x'.srem y' ≠ 0#n then pure .poison
         else pure (.value (x'.sdiv y'))
-
-
 
 end Arith

@@ -5,6 +5,7 @@ import LeanMLIR.Basic
 
 
 namespace Builtin
+abbrev index_def := 64
 
 inductive Shape
   | scalar
@@ -13,16 +14,10 @@ inductive Shape
 
 inductive IntType
   | int : Nat -> IntType -- ex: i32, i64
---| index : Nat -> IntType
+  | index : IntType
 --| uint : Nat -> IntType
 --| sint : Nat -> IntType
   deriving DecidableEq, Inhabited, Lean.ToExpr, Repr
-
--- From the mlir spec:
--- "Attributes are the mechanism for specifying constant data on operations
--- in places where a variable is never allowed"
-inductive attr
-  | intlit (lit : Nat) (width : Nat)
 
 inductive Scalar
   | int : IntType -> Scalar
@@ -42,3 +37,4 @@ def ShapedInt.toTy (t : ShapedInt) : Ty := .shaped t.shape (.int (t.val))
 
 def IntType.width : IntType -> Nat
   | .int w => w
+  | .index => index_def
